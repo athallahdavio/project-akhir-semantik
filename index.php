@@ -14,7 +14,6 @@
     <script src="https://kit.fontawesome.com/c3c1353c4c.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Connector untuk menghubungkan PHP dan SPARQL -->
     <?php
         require_once("sparqllib.php");
         $searchInput = "" ;
@@ -25,36 +24,46 @@
             $data = sparql_get(
             "http://localhost:3030/laptopcatalog",
             "
-                PREFIX id: <https://lapbook.com/>
-                PREFIX item: <https://lapbook.com/ns/item#>
-                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            prefix d:<http://www.semanticweb.org/athal/ontologies/2024/4/laptop#>
 
-                SELECT ?NamaProduk ?Processor ?RAM ?Storage ?GPU ?Harga ?Type ?OS ?Brand ?TahunRilis
-                WHERE
-                { 
-                    ?items
-                        item:NamaProduk     ?NamaProduk ;
-                        item:Processor      ?Processor ;
-                        item:RAM            ?RAM ;
-                        item:Storage        ?Storage ;
-                        item:GPU            ?GPU ;
-                        item:Harga          ?Harga ;
-                        item:Type           ?Type ;
-                        item:OS             ?OS ;
-                        item:Brand          ?Brand ;
-                        item:TahunRilis     ?TahunRilis .
-                        FILTER 
-                        (regex (?NamaProduk, '$searchInput', 'i') 
-                        || regex (?Processor, '$searchInput', 'i') 
-                        || regex (?RAM, '$searchInput', 'i') 
-                        || regex (?Storage, '$searchInput', 'i') 
-                        || regex (?GPU, '$searchInput', 'i') 
-                        || regex (?Harga, '$searchInput', 'i') 
-                        || regex (?Type, '$searchInput', 'i') 
-                        || regex (?OS, '$searchInput', 'i') 
-                        || regex (?Brand, '$searchInput', 'i') 
-                        || regex (?TahunRilis, '$searchInput', 'i'))
-                }
+            SELECT ?LaptopName ?LaptopModel ?LaptopPrice ?LaptopType ?BrandName ?OSName ?ProcessorBrand ?ProcessorName ?GPUName ?RAMType ?RAMSize ?StorageType ?StorageSize
+            WHERE {
+                ?lptp	d:LaptopName ?LaptopName;
+                        d:LaptopModel ?LaptopModel;
+                        d:LaptopPrice ?LaptopPrice;
+                        d:LaptopType ?LaptopType;
+                        d:hasBrand ?brnd;
+                        d:hasOS ?os;
+                        d:hasProcessor ?prc;
+                        d:hasGPU ?gpu;
+                        d:hasRAM ?ram;
+                        d:hasStorage ?strg.
+                        
+                ?brnd	d:BrandName ?BrandName.
+                ?os		d:OSName ?OSName.
+                ?prc	d:ProcessorBrand ?ProcessorBrand;
+                        d:ProcessorName ?ProcessorName.
+                ?gpu	d:GPUName ?GPUName.
+                ?ram	d:RAMType ?RAMType;
+                        d:RAMSize ?RAMSize.
+                ?strg	d:StorageType ?StorageType;
+                        d:StorageSize ?StorageSize.
+                FILTER (
+                    regex(?LaptopName, '$searchInput', 'i') || 
+                    regex(?LaptopModel, '$searchInput', 'i') || 
+                    regex(?LaptopPrice, '$searchInput', 'i') || 
+                    regex(?LaptopType, '$searchInput', 'i') || 
+                    regex(?BrandName, '$searchInput', 'i') || 
+                    regex(?OSName, '$searchInput', 'i') || 
+                    regex(?ProcessorBrand, '$searchInput', 'i') || 
+                    regex(?ProcessorName, '$searchInput', 'i') || 
+                    regex(?GPUName, '$searchInput', 'i') || 
+                    regex(?RAMType, '$searchInput', 'i') || 
+                    regex(?RAMSize, '$searchInput', 'i') || 
+                    regex(?StorageType, '$searchInput', 'i') || 
+                    regex(?StorageSize, '$searchInput', 'i')
+                )
+            }
             "
             );
         } else {
@@ -65,25 +74,26 @@
 
             SELECT ?LaptopName ?LaptopModel ?LaptopPrice ?LaptopType ?BrandName ?OSName ?ProcessorBrand ?ProcessorName ?GPUName ?RAMType ?RAMSize ?StorageType ?StorageSize
             WHERE {
-            ?lptp	d:LaptopName ?LaptopName;
-                    d:LaptopModel ?LaptopModel;
-                    d:LaptopPrice ?LaptopPrice;
-                    d:LaptopType ?LaptopType;
-                    d:hasBrand ?brnd;
-                    d:hasOS ?os;
-                    d:hasProcessor ?prc;
-                    d:hasGPU ?gpu;
-                    d:hasRAM ?ram;
-                    d:hasStorage ?strg.
-            ?brnd	d:BrandName ?BrandName.
-            ?os		d:OSName ?OSName.
-            ?prc	d:ProcessorBrand ?ProcessorBrand;
-                    d:ProcessorName ?ProcessorName.
-            ?gpu	d:GPUName ?GPUName.
-            ?ram	d:RAMType ?RAMType;
-                    d:RAMSize ?RAMSize.
-            ?strg	d:StorageType ?StorageType;
-                    d:StorageSize ?StorageSize.
+                ?lptp	d:LaptopName ?LaptopName;
+                        d:LaptopModel ?LaptopModel;
+                        d:LaptopPrice ?LaptopPrice;
+                        d:LaptopType ?LaptopType;
+                        d:hasBrand ?brnd;
+                        d:hasOS ?os;
+                        d:hasProcessor ?prc;
+                        d:hasGPU ?gpu;
+                        d:hasRAM ?ram;
+                        d:hasStorage ?strg.
+
+                ?brnd	d:BrandName ?BrandName.
+                ?os		d:OSName ?OSName.
+                ?prc	d:ProcessorBrand ?ProcessorBrand;
+                        d:ProcessorName ?ProcessorName.
+                ?gpu	d:GPUName ?GPUName.
+                ?ram	d:RAMType ?RAMType;
+                        d:RAMSize ?RAMSize.
+                ?strg	d:StorageType ?StorageType;
+                        d:StorageSize ?StorageSize.
             }
             "
             );

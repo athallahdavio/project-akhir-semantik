@@ -1,19 +1,25 @@
-PREFIX id: <https://lapbook.com/>
-PREFIX item: <https://lapbook.com/ns/item#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix d:<http://www.semanticweb.org/athal/ontologies/2024/4/laptop#>
 
-SELECT ?NamaProduk ?Processor ?RAM ?Storage ?GPU ?Harga ?Type ?OS ?Brand ?TahunRilis
-WHERE
-{ 
-    ?items
-        item:NamaProduk     ?NamaProduk ;
-        item:Processor      ?Processor ;
-        item:RAM            ?RAM ;
-        item:Storage        ?Storage ;
-        item:GPU            ?GPU ;
-        item:Harga          ?Harga ;
-        item:Type           ?Type ;
-        item:OS             ?OS ;
-        item:Brand          ?Brand ;
-        item:TahunRilis     ?TahunRilis .
+SELECT ?LaptopName ?LaptopModel ?LaptopPrice ?LaptopType ?BrandName ?OSName ?ProcessorBrand ?ProcessorName ?GPUName ?RAMType ?RAMSize ?StorageType ?StorageSize
+WHERE {
+    ?lptp	d:LaptopName ?LaptopName;
+            d:LaptopModel ?LaptopModel;
+            d:LaptopPrice ?LaptopPrice;
+            d:LaptopType ?LaptopType;
+            d:hasBrand ?brnd;
+            d:hasOS ?os;
+            d:hasProcessor ?prc;
+            d:hasGPU ?gpu;
+            d:hasRAM ?ram;
+            d:hasStorage ?strg.
+                        
+    ?brnd	d:BrandName ?BrandName.
+    ?os		d:OSName ?OSName.
+    ?prc	d:ProcessorBrand ?ProcessorBrand;
+            d:ProcessorName ?ProcessorName.
+    ?gpu	d:GPUName ?GPUName.
+    ?ram	d:RAMType ?RAMType;
+            d:RAMSize ?RAMSize.
+    ?strg	d:StorageType ?StorageType;
+            d:StorageSize ?StorageSize.
 }
