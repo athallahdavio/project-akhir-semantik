@@ -1,25 +1,20 @@
 prefix d:<http://www.semanticweb.org/athal/ontologies/2024/4/laptop#>
 
-SELECT ?LaptopName ?LaptopModel ?LaptopPrice ?LaptopType ?BrandName ?OSName ?ProcessorBrand ?ProcessorName ?GPUName ?RAMType ?RAMSize ?StorageType ?StorageSize
+SELECT ?LaptopBrand ?LaptopModel ?LaptopPrice ?OSName ?ProcessorName ?GPUName ?RAMType ?RAMSize ?StorageType ?StorageSize
 WHERE {
-    ?lptp	d:LaptopName ?LaptopName;
-            d:LaptopModel ?LaptopModel;
-            d:LaptopPrice ?LaptopPrice;
-            d:LaptopType ?LaptopType;
-            d:hasBrand ?brnd;
-            d:hasOS ?os;
-            d:hasProcessor ?prc;
-            d:hasGPU ?gpu;
-            d:hasRAM ?ram;
-            d:hasStorage ?strg.
-                        
-    ?brnd	d:BrandName ?BrandName.
-    ?os		d:OSName ?OSName.
-    ?prc	d:ProcessorBrand ?ProcessorBrand;
-            d:ProcessorName ?ProcessorName.
-    ?gpu	d:GPUName ?GPUName.
-    ?ram	d:RAMType ?RAMType;
-            d:RAMSize ?RAMSize.
-    ?strg	d:StorageType ?StorageType;
-            d:StorageSize ?StorageSize.
+?lptp	d:LaptopBrand ?LaptopBrand;
+		d:LaptopModel ?LaptopModel;
+		d:LaptopPrice ?LaptopPrice;
+		d:hasOS ?os;
+  		d:hasProcessor ?prc;
+    	d:hasGPU ?gpu;
+     	d:hasRAM ?ram;
+      	d:hasStorage ?strg.
+?os		d:OSName ?OSName.
+?prc	d:ProcessorName ?ProcessorName.
+?gpu	d:GPUName ?GPUName.
+?ram	d:RAMType ?RAMType;
+     	d:RAMSize ?RAMSize.
+?strg	d:StorageType ?StorageType;
+      	d:StorageSize ?StorageSize.
 }

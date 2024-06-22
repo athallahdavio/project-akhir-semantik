@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lapbook - Home</title>
+    <title>Laptop Catalogue</title>
     
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -26,36 +26,28 @@
             "
             prefix d:<http://www.semanticweb.org/athal/ontologies/2024/4/laptop#>
 
-            SELECT ?LaptopName ?LaptopModel ?LaptopPrice ?LaptopType ?BrandName ?OSName ?ProcessorBrand ?ProcessorName ?GPUName ?RAMType ?RAMSize ?StorageType ?StorageSize
+            SELECT ?LaptopBrand ?LaptopModel ?LaptopPrice ?OSName ?ProcessorName ?GPUName ?RAMType ?RAMSize ?StorageType ?StorageSize
             WHERE {
-                ?lptp	d:LaptopName ?LaptopName;
+                ?lptp	d:LaptopBrand ?LaptopBrand;
                         d:LaptopModel ?LaptopModel;
                         d:LaptopPrice ?LaptopPrice;
-                        d:LaptopType ?LaptopType;
-                        d:hasBrand ?brnd;
                         d:hasOS ?os;
                         d:hasProcessor ?prc;
                         d:hasGPU ?gpu;
                         d:hasRAM ?ram;
                         d:hasStorage ?strg.
-                        
-                ?brnd	d:BrandName ?BrandName.
                 ?os		d:OSName ?OSName.
-                ?prc	d:ProcessorBrand ?ProcessorBrand;
-                        d:ProcessorName ?ProcessorName.
+                ?prc	d:ProcessorName ?ProcessorName.
                 ?gpu	d:GPUName ?GPUName.
                 ?ram	d:RAMType ?RAMType;
                         d:RAMSize ?RAMSize.
                 ?strg	d:StorageType ?StorageType;
                         d:StorageSize ?StorageSize.
                 FILTER (
-                    regex(?LaptopName, '$searchInput', 'i') || 
                     regex(?LaptopModel, '$searchInput', 'i') || 
                     regex(?LaptopPrice, '$searchInput', 'i') || 
-                    regex(?LaptopType, '$searchInput', 'i') || 
-                    regex(?BrandName, '$searchInput', 'i') || 
+                    regex(?LaptopBrand, '$searchInput', 'i') || 
                     regex(?OSName, '$searchInput', 'i') || 
-                    regex(?ProcessorBrand, '$searchInput', 'i') || 
                     regex(?ProcessorName, '$searchInput', 'i') || 
                     regex(?GPUName, '$searchInput', 'i') || 
                     regex(?RAMType, '$searchInput', 'i') || 
@@ -72,23 +64,18 @@
             "
             prefix d:<http://www.semanticweb.org/athal/ontologies/2024/4/laptop#>
 
-            SELECT ?LaptopName ?LaptopModel ?LaptopPrice ?LaptopType ?BrandName ?OSName ?ProcessorBrand ?ProcessorName ?GPUName ?RAMType ?RAMSize ?StorageType ?StorageSize
+            SELECT ?LaptopBrand ?LaptopModel ?LaptopPrice ?OSName ?ProcessorName ?GPUName ?RAMType ?RAMSize ?StorageType ?StorageSize
             WHERE {
-                ?lptp	d:LaptopName ?LaptopName;
+                ?lptp	d:LaptopBrand ?LaptopBrand;
                         d:LaptopModel ?LaptopModel;
                         d:LaptopPrice ?LaptopPrice;
-                        d:LaptopType ?LaptopType;
-                        d:hasBrand ?brnd;
                         d:hasOS ?os;
                         d:hasProcessor ?prc;
                         d:hasGPU ?gpu;
                         d:hasRAM ?ram;
                         d:hasStorage ?strg.
-
-                ?brnd	d:BrandName ?BrandName.
                 ?os		d:OSName ?OSName.
-                ?prc	d:ProcessorBrand ?ProcessorBrand;
-                        d:ProcessorName ?ProcessorName.
+                ?prc	d:ProcessorName ?ProcessorName.
                 ?gpu	d:GPUName ?GPUName.
                 ?ram	d:RAMType ?RAMType;
                         d:RAMSize ?RAMSize.
@@ -107,7 +94,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-dark sticky-top">
         <div class="container container-fluid">
-            <a class="navbar-brand" href="index.php"><img src="src/img/logo-nobg.png" style="width:50px" alt="Logo"></a>
+            <a class="navbar-brand text-white" href="index.php">Laptop Catalogue</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -141,13 +128,10 @@
             <thead class="table-dark align-middle">
                 <tr>
                     <th>No.</th>
-                    <th>Nama Produk</th>
                     <th>Merek</th>
                     <th>Model</th>
                     <th>Harga</th>
-                    <th>Tipe</th>
                     <th>OS</th>
-                    <th>Merek Processor</th>
                     <th>Processor</th>
                     <th>GPU</th>
                     <th>Tipe RAM</th>
@@ -160,13 +144,10 @@
                 <?php $i = 0; ?>
                 <?php foreach ($data as $data) : ?>
                     <td><?= ++$i ?></td>
-                    <td><?= $data['LaptopName'] ?></td>
-                    <td><?= $data['BrandName'] ?></td>
+                    <td><?= $data['LaptopBrand'] ?></td>
                     <td><?= $data['LaptopModel'] ?></td>
-                    <td><?= $data['LaptopPrice'] ?></td>
-                    <td><?= $data['LaptopType'] ?></td>
+                    <td>Rp. <?= $data['LaptopPrice'] ?></td>
                     <td><?= $data['OSName'] ?></td>
-                    <td><?= $data['ProcessorBrand'] ?></td>
                     <td><?= $data['ProcessorName'] ?></td>
                     <td><?= $data['GPUName'] ?></td>
                     <td><?= $data['RAMType'] ?></td>
@@ -179,21 +160,5 @@
         </table>
     </div>
 
-    <!-- Footer -->
-    <?php
-        if ($searchInput != NULL) {
-            ?> 
-                <footer class="footer text-light text-center bg-dark pb-1 fixed-bottom">
-                    <p>Copyright &copy; All rights reserved -<img src="src/img/logo-nobg.png" style="width:75px" alt="Logo"></p>
-                </footer>
-            <?php
-        } else {
-            ?>
-                <footer class="footer text-light text-center bg-dark pb-1">
-                    <p>Copyright &copy; All rights reserved -<img src="src/img/logo-nobg.png" style="width:75px" alt="Logo"></p>
-                </footer>
-            <?php
-        }
-    ?>
 </body>
 </html>
